@@ -1,6 +1,6 @@
 # NexusInv - AI Powered Inventory & Forecasting System
 
-NexusInv is a modern, intelligent inventory management dashboard designed for electronics retailers. It leverages **Google's Gemini API** to provide real-time market insights, demand forecasting, and simulated historical analysis, helping business owners make data-driven decisions.
+NexusInv is a modern, intelligent inventory management dashboard designed for electronics retailers. It leverages LLM Model to provide real-time market insights, demand forecasting, and simulated historical analysis, helping business owners make data-driven decisions.
 
 ## 🚀 Key Features
 
