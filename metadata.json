@@ -1,0 +1,5 @@
+{
+  "name": "Gemini Inventory & Forecast",
+  "description": "An intelligent inventory management system that uses Google Gemini to forecast local market trends and generate PDF reports.",
+  "requestFramePermissions": []
+}
