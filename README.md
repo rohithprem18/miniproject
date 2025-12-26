@@ -1,6 +1,6 @@
 # NexusInv - AI Powered Inventory & Forecasting System
 
-NexusInv is a modern, intelligent inventory management dashboard designed for electronics retailers. It leverages LLM Model to provide real-time market insights, demand forecasting, and simulated historical analysis, helping business owners make data-driven decisions.
+NexusInv is a modern, intelligent inventory management dashboard designed for electronics retailers. It leverages **Google's Gemini API** to provide real-time market insights, demand forecasting, and simulated historical analysis, helping business owners make data-driven decisions.
 
 ## 🚀 Key Features
 
@@ -11,7 +11,7 @@ NexusInv is a modern, intelligent inventory management dashboard designed for el
 - **PDF Export**: Generate professional inventory status reports with one click.
 - **Local Persistence**: Data is saved automatically to your browser's local storage.
 
-### 🔮 AI Market Intelligence 
+### 🔮 AI Market Intelligence (Gemini Powered)
 - **Market Trends**: Analyzes your current stock against local market trends (e.g., "Trends in Chennai").
 - **Demand Scoring**: Assigns a demand score (0-100) to products based on real-world popularity and seasonality.
 - **Gap Analysis**: Suggests trending products that are missing from your inventory.
@@ -33,10 +33,17 @@ NexusInv is a modern, intelligent inventory management dashboard designed for el
 
 - **Frontend**: React 19, TypeScript
 - **Styling**: Tailwind CSS
+- **AI/LLM**: Google Gemini API (`@google/genai`)
 - **Visualization**: Recharts
 - **Reporting**: jsPDF, jsPDF-AutoTable
 - **Icons**: Lucide React
 
+## ⚙️ Configuration
+
+This application requires a **Google Gemini API Key** to function.
+
+1. Obtain an API key from [Google AI Studio](https://aistudio.google.com/).
+2. The application expects the API key to be available in the environment variable `process.env.API_KEY`.
 
 ## 📖 Usage Guide
 
@@ -44,4 +51,7 @@ NexusInv is a modern, intelligent inventory management dashboard designed for el
 2. **Location**: Click the location pill in the top header (default: Chennai) to change your target market region. This updates all AI forecasts.
 3. **Forecasting**: Navigate to "Market Trends" to see how your inventory aligns with local demand.
 4. **Chat**: Click the floating action button in the bottom right to talk to NexusBot.
-5. **Exporting Reports**: Use the "Export PDF" button on the dashboard to generate inventory reports.
+
+## 📄 License
+
+MIT

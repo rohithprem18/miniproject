@@ -14,7 +14,7 @@ export const createAssistantChat = (products: Product[], location: string): Chat
     .join('\n');
 
   return ai.chats.create({
-    model: "gemini-2.5-flash",
+    model: "gemini-3-flash-preview",
     config: {
       systemInstruction: `
         You are NexusBot, an expert inventory management assistant for an electronics store in ${location}.
@@ -48,7 +48,7 @@ export const getMarketForecast = async (location: string, products: Product[] = 
     throw new Error("API Key is missing.");
   }
 
-  const modelId = "gemini-2.5-flash";
+  const modelId = "gemini-3-flash-preview";
   const inventoryList = products.map(p => `${p.name} (${p.category})`).join(", ");
   
   const prompt = `
@@ -130,10 +130,11 @@ export const getMarketForecast = async (location: string, products: Product[] = 
 export const predictDemand = async (products: Product[], location: string, historySummary: string): Promise<DailyPrediction[]> => {
   if (!apiKey) throw new Error("API Key is missing.");
 
-  const modelId = "gemini-2.5-flash";
+  const modelId = "gemini-3-flash-preview";
 
   const productList = products.map(p => p.name).join(", ");
-  const today = new Date().toISOString().split('T')[0];
+  // Using explicit date format including weekday to help the LLM identify weekends
+  const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
   const prompt = `
     You are an inventory planning AI for an Electronics store in ${location}.
@@ -147,9 +148,11 @@ export const predictDemand = async (products: Product[], location: string, histo
     Task: 
     Predict the daily sales quantity for EACH of the available products for the NEXT 7 DAYS.
     
-    CRITICAL:
-    - If a product is NEW (no history provided), estimate sales based on its category popularity in ${location}.
-    - You MUST return predictions for ALL ${products.length} products in the list.
+    CRITICAL INSTRUCTIONS FOR VARIANCE:
+    1. **Fluctuations**: Sales numbers MUST vary day-to-day. Do NOT output a flat line (e.g., do not predict 5, 5, 5, 5, 5, 5, 5).
+    2. **Weekends vs Weekdays**: Consumer electronics usually sell better on Friday evenings, Saturdays, and Sundays. Weekdays (Mon-Thu) are typically slower.
+    3. **Seasonality**: Use the current date to infer any near-term holidays or events.
+    4. **Coverage**: You MUST return predictions for ALL ${products.length} products in the list.
     
     Return a JSON array where each item represents a day (date string) and contains a list of predictions for that day.
   `;
@@ -159,6 +162,7 @@ export const predictDemand = async (products: Product[], location: string, histo
       model: modelId,
       contents: prompt,
       config: {
+        temperature: 1, // Higher temperature to ensure variance in numbers
         responseMimeType: "application/json",
         responseSchema: {
           type: Type.ARRAY,
@@ -197,7 +201,7 @@ export const predictDemand = async (products: Product[], location: string, histo
 export const getHistoricalAnalysis = async (products: Product[], location: string): Promise<HistoricalProductData[]> => {
   if (!apiKey) throw new Error("API Key is missing.");
 
-  const modelId = "gemini-2.5-flash";
+  const modelId = "gemini-3-flash-preview";
   // Pass prices with Rupee symbol in the prompt context
   const productInfo = products.map(p => `${p.name} (₹${p.price})`).join(", ");
 

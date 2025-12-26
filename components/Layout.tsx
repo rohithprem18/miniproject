@@ -37,7 +37,7 @@ export const Layout: React.FC<LayoutProps> = ({
             <LayoutDashboard className="w-6 h-6 text-blue-600" />
             NexusInv
           </h1>
-          <p className="text-xs text-slate-500 mt-1">AI Inventory Optimisation and Forecasting</p>
+          <p className="text-xs text-slate-500 mt-1">Inventory Optimisation and Forecasting</p>
         </div>
         
         <nav className="mt-6 px-4 space-y-2">

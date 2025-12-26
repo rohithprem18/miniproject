@@ -15,11 +15,13 @@ export const DemandPlanningView: React.FC<DemandPlanningViewProps> = ({ products
 
   // Helper to generate fake history "from the internet"
   const generateHistory = () => {
-    let summary = "Simulated Past 30 Days Sales:\n";
+    let summary = "Simulated Sales Patterns (Past 30 Days):\n";
     products.forEach(p => {
-      // Random base sales between 1 and 10 per day average
-      const avg = Math.floor(Math.random() * 5) + 1; 
-      summary += `- ${p.name}: Avg ${avg} units/day. Trend: ${Math.random() > 0.5 ? 'Increasing' : 'Stable'}.\n`;
+      // Create more specific patterns for the AI to react to
+      const avg = Math.floor(Math.random() * 8) + 2; 
+      const volatility = Math.random() > 0.5 ? "High" : "Low";
+      const peakDay = ["Friday", "Saturday", "Sunday"][Math.floor(Math.random() * 3)];
+      summary += `- ${p.name}: Avg ${avg} units/day. Volatility: ${volatility}. Peak sales usually on ${peakDay}.\n`;
     });
     return summary;
   };
